@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liam O'Shea — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;900&family=Courier+Prime:ital@0;1&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#e8e0cc;--parch:#d4c9a8;--warm:#c8b98a;
+  --brown:#2a1f0e;--rust:#d94f1a;--gold:#e09010;
+  --teal:#1a8a8a;--sand:#8c7a52;--dk:#1a1208;
+  --wbody:#ddd4b8;--wdark:#c4b896;--wline:#b8a87a;--wdeep:#a09070;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--brown);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden;cursor:none;margin:0}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");opacity:.3;pointer-events:none;z-index:1000}
+#cur{position:fixed;width:11px;height:11px;background:var(--rust);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply}
+#cur-r{position:fixed;width:34px;height:34px;border:1.5px solid var(--rust);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45}
+.stripes{display:flex;flex-direction:column;gap:3px}
+.stripe{height:7px;border-radius:2px}
+.s1{background:var(--rust)}.s2{background:var(--gold)}.s3{background:var(--teal)}.s4{background:var(--sand)}.s5{background:var(--brown);width:70%}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:1px solid rgba(42,31,14,.12);background:rgba(232,224,204,.92);backdrop-filter:blur(8px)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:4px;color:var(--brown);text-decoration:none;cursor:none}
+.nav-logo span{color:var(--rust)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sand);text-decoration:none;transition:color .2s;cursor:none}
+.nav-links a:hover{color:var(--rust)}
+.nav-tag{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:1.5px;color:var(--sand);border:1px solid var(--sand);padding:4px 10px}
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:80px;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 48px 80px 72px;position:relative;z-index:2}
+.eyebrow{font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sand);margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--sand)}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,10vw,130px);line-height:.92;letter-spacing:2px;color:var(--brown);margin-bottom:8px}
+h1 .acc{color:var(--rust)}
+h1 .out{-webkit-text-stroke:2px var(--brown);color:transparent}
+.hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:300;color:var(--sand);letter-spacing:6px;text-transform:uppercase;margin-top:16px;margin-bottom:48px}
+.hero-stripes{margin-bottom:48px}.hero-stripes .stripes{width:280px}
+.ctas{display:flex;gap:16px;align-items:center}
+.btn{font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;cursor:none;text-decoration:none;display:inline-block;transition:all .2s;border:none}
+.btn-p{color:var(--cream);background:var(--brown)}.btn-p:hover{background:var(--rust)}
+.btn-g{color:var(--brown);background:transparent;border:1px solid var(--brown)}.btn-g:hover{background:var(--brown);color:var(--cream)}
+.hero-right{display:flex;align-items:center;justify-content:center;padding:80px 72px 80px 48px;background:var(--cream);position:relative}
+/* WALKMAN */
+.walkman-scene{position:relative;width:340px;height:520px;perspective:800px}
+.tape{position:absolute;left:50%;top:0;width:220px;opacity:0;transform:translateX(-50%) translateY(-240px) rotate(-6deg);z-index:20;filter:drop-shadow(0 8px 16px rgba(42,31,14,0.18));animation:tapeFall 0.7s cubic-bezier(0.22,1,0.36,1) 1.4s forwards}
+@keyframes tapeFall{0%{opacity:1;transform:translateX(-50%) translateY(-240px) rotate(-6deg)}60%{opacity:1;transform:translateX(-50%) translateY(138px) rotate(0deg)}75%{opacity:1;transform:translateX(-50%) translateY(134px) rotate(0deg)}88%{opacity:1;transform:translateX(-50%) translateY(136px) rotate(0deg)}100%{opacity:1;transform:translateX(-50%) translateY(135px) rotate(0deg)}}
+.tape.hidden-by-door{z-index:12}
+.wbody{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:320px;z-index:5}
+.wdoor{position:absolute;bottom:198px;left:50%;width:320px;z-index:15;transform-origin:bottom center;transform:translateX(-50%) rotateX(0deg);animation:doorOpen 0.6s cubic-bezier(0.4,0,0.2,1) 0.3s forwards,doorClose 0.5s cubic-bezier(0.34,1.56,0.64,1) 2.15s forwards}
+@keyframes doorOpen{0%{transform:translateX(-50%) rotateX(0deg)}100%{transform:translateX(-50%) rotateX(-112deg)}}
+@keyframes doorClose{0%{transform:translateX(-50%) rotateX(-112deg)}70%{transform:translateX(-50%) rotateX(4deg)}100%{transform:translateX(-50%) rotateX(0deg)}}
+.reel{transform-origin:center;transform-box:fill-box}
+.reel.spin{animation:rSpin 2.4s linear infinite}
+@keyframes rSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.color-frame{position:fixed;right:0;top:0;bottom:0;width:22px;z-index:400;display:flex;flex-direction:column;pointer-events:none;border-left:3px solid var(--brown);background:var(--brown)}
+.color-frame span{flex:1;width:100%;min-height:0}
+.cf-cream{background:var(--cream)}.cf-parch{background:var(--parch)}.cf-warm{background:var(--warm)}
+.cf-sand{background:var(--sand)}.cf-rust{background:var(--rust)}.cf-gold{background:var(--gold)}
+.cf-teal{background:var(--teal)}.cf-brown{background:var(--brown)}.cf-dk{background:var(--dk)}
+
+/* CASE STUDY PAGE */
+.cs-back{padding:24px 72px 0;margin-top:80px}
+.cs-back a{font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sand);text-decoration:none;cursor:none}
+.cs-back a:hover{color:var(--rust)}
+.cs-hero{padding:60px 72px 80px}
+.cs-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,8vw,110px);line-height:.92;letter-spacing:2px;color:var(--brown);margin-bottom:16px}
+.cs-sub{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:300;color:var(--sand);margin-bottom:40px}
+.cs-logo-box{width:100%;max-width:280px;height:120px;background:var(--parch);border:1px solid rgba(42,31,14,.15);display:flex;align-items:center;justify-content:center;font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:var(--sand)}
+/* overview */
+.overview{display:grid;grid-template-columns:repeat(4,1fr);background:var(--parch);border-top:1px solid rgba(42,31,14,.15);border-bottom:1px solid rgba(42,31,14,.15)}
+.ov-item{padding:32px 40px;border-right:1px solid rgba(42,31,14,.15)}
+.ov-item:last-child{border-right:none}
+.ov-label{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sand);margin-bottom:8px}
+.ov-val{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--brown)}
+/* sections */
+.cs-section{display:grid;grid-template-columns:180px 1fr;border-top:1px solid rgba(42,31,14,.2)}
+.cs-label{padding:60px 32px 60px 72px;border-right:1px solid rgba(42,31,14,.12);display:flex;flex-direction:column;gap:12px}
+.cs-sec-num{font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:var(--sand)}
+.cs-sec-title{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:var(--brown);letter-spacing:2px;writing-mode:vertical-rl;transform:rotate(180deg)}
+.cs-body{padding:60px 72px 60px 48px}
+.cs-h2{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;letter-spacing:1px;color:var(--brown);margin-bottom:24px}
+.cs-h3{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1px;color:var(--brown);margin:40px 0 14px}
+.cs-p{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:300;line-height:1.6;color:var(--brown);max-width:680px;margin-bottom:20px}
+/* pain point cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.card{background:var(--parch);padding:28px 28px;border-left:3px solid var(--rust)}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--brown);margin-bottom:8px}
+.card-body{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:300;line-height:1.5;color:var(--sand)}
+/* image placeholders */
+.img-wrap{margin:28px 0 6px;width:100%;background:var(--parch);border:1px solid rgba(42,31,14,.15);display:flex;align-items:center;justify-content:center;font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:var(--sand);opacity:.7}
+.img-caption{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sand);margin-bottom:28px;margin-top:6px}
+/* callout */
+.callout{background:var(--brown);padding:36px 44px;margin:28px 0}
+.callout-item{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:300;color:var(--cream);line-height:1.9;display:flex;gap:12px}
+.callout-item::before{content:'✦';color:var(--rust);flex-shrink:0}
+/* case nav */
+.case-nav{display:flex;justify-content:space-between;align-items:center;padding:48px 72px;border-top:1px solid rgba(42,31,14,.2)}
+.cn-label{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sand);margin-bottom:8px}
+.cn-link{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--brown);text-decoration:none;transition:color .2s;cursor:none}
+.cn-link:hover{color:var(--rust)}
+.cn-muted{font-family:'Barlow Condensed',sans-serif;font-size:18px;color:var(--sand);opacity:.4}
+.cn-top{font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sand);border:none;background:none;cursor:none}
+.cn-top:hover{color:var(--rust)}
+</style>
+</head>
+<body>
+<div class="color-frame" aria-hidden="true">
+  <span class="cf-cream"></span><span class="cf-parch"></span><span class="cf-warm"></span>
+  <span class="cf-sand"></span><span class="cf-rust"></span><span class="cf-gold"></span>
+  <span class="cf-teal"></span><span class="cf-brown"></span><span class="cf-dk"></span>
+</div>
+<div id="cur"></div><div id="cur-r"></div>
+
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('home');return false">L<span>.</span>O'SHEA</a>
+  <ul class="nav-links">
+    <li><a href="#work" onclick="showPage('home');setTimeout(()=>document.getElementById('work').scrollIntoView({behavior:'smooth'}),50);return false">Work</a></li>
+    <li><a href="#about" onclick="showPage('home');setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}),50);return false">About</a></li>
+    <li><a href="#contact" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),50);return false">Contact</a></li>
+  </ul>
+  <span class="nav-tag">Available for work</span>
+</nav>
+
+<!-- ═══════════════════════════════════════════ HOME PAGE ═══ -->
+<div id="page-home" class="page active">
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Product Designer &amp; UX Researcher</div>
+    <h1>LIAM<br><span class="acc">O'</span><span class="out">SHEA</span></h1>
+    <div class="hero-sub">Santa Barbara, CA</div>
+    <div class="hero-stripes"><div class="stripes">
+      <div class="stripe s1"></div><div class="stripe s2"></div>
+      <div class="stripe s3"></div><div class="stripe s4"></div><div class="stripe s5"></div>
+    </div></div>
+    <div class="ctas">
+      <a href="#work" class="btn btn-p" onclick="setTimeout(()=>document.getElementById('work').scrollIntoView({behavior:'smooth'}),50);return false">View My Work</a>
+      <a href="#contact" class="btn btn-g" onclick="setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),50);return false">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="walkman-scene">
+      <div class="tape" id="cassette">
+        <svg viewBox="0 0 220 142" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <rect x="2" y="2" width="216" height="138" rx="8" fill="#d8ceb0" stroke="#b8a87a" stroke-width="1"/>
+          <rect x="12" y="12" width="196" height="72" rx="4" fill="#e2d8bc" stroke="#c4b896" stroke-width=".75"/>
+          <rect x="12" y="62" width="196" height="9" fill="#d94f1a" opacity=".85"/>
+          <rect x="12" y="71" width="196" height="6" fill="#e09010" opacity=".85"/>
+          <rect x="12" y="77" width="196" height="6" fill="#1a8a8a" opacity=".85"/>
+          <text x="110" y="34" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="13" fill="#2a1f0e" letter-spacing="4" opacity=".8">LIAM O'SHEA</text>
+          <text x="110" y="47" text-anchor="middle" font-family="'Courier Prime',monospace" font-size="6.5" fill="#8c7a52" letter-spacing="2">PRODUCT DESIGN · UX RESEARCH</text>
+          <text x="110" y="58" text-anchor="middle" font-family="'Courier Prime',monospace" font-size="6" fill="#d94f1a" letter-spacing="2">SIDE A · 46 MIN</text>
+          <rect x="38" y="96" width="144" height="32" rx="4" fill="#c4b896" stroke="#b8a87a" stroke-width=".75"/>
+          <g id="t-rl" transform="translate(74 112)"><g>
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2.4s" begin="2.2s" repeatCount="indefinite"/>
+            <circle cx="0" cy="0" r="12" fill="#d0c4a0" stroke="#b8a87a" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="7" fill="#c4b896" stroke="#b8a87a" stroke-width=".75"/>
+            <circle cx="0" cy="0" r="2" fill="#d94f1a"/>
+            <line x1="0" y1="-7" x2="0" y2="-12" stroke="#b8a87a" stroke-width="1.5"/>
+            <line x1="0" y1="7" x2="0" y2="12" stroke="#b8a87a" stroke-width="1.5"/>
+            <line x1="-7" y1="0" x2="-12" y2="0" stroke="#b8a87a" stroke-width="1.5"/>
+            <line x1="7" y1="0" x2="12" y2="0" stroke="#b8a87a" stroke-width="1.5"/>
+          </g></g>
+          <g id="t-rr" transform="translate(146 112)"><g>
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2.4s" begin="2.2s" repeatCount="indefinite"/>
+            <circle cx="0" cy="0" r="12" fill="#d0c4a0" stroke="#b8a87a" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="7" fill="#c4b896" stroke="#b8a87a" stroke-width=".75"/>
+            <circle cx="0" cy="0" r="2" fill="#e09010"/>
+            <line x1="0" y1="-7" x2="0" y2="-12" stroke="#b8a87a" stroke-width="1.5"/>
+            <line x1="0" y1="7" x2="0" y2="12" stroke="#b8a87a" stroke-width="1.5"/>
+            <line x1="-7" y1="0" x2="-12" y2="0" stroke="#b8a87a" stroke-width="1.5"/>
+            <line x1="7" y1="0" x2="12" y2="0" stroke="#b8a87a" stroke-width="1.5"/>
+          </g></g>
+          <path d="M86 112 Q110 104 134 112" stroke="#b8a87a" stroke-width=".75" fill="none"/>
+          <g fill="#d94f1a" opacity=".5">
+            <circle cx="188" cy="16" r="1.5"/><circle cx="196" cy="16" r="1.5"/><circle cx="204" cy="16" r="1.5"/>
+            <circle cx="188" cy="23" r="1.5"/><circle cx="196" cy="23" r="1.5"/><circle cx="204" cy="23" r="1.5"/>
+            <circle cx="188" cy="30" r="1.5"/><circle cx="196" cy="30" r="1.5"/><circle cx="204" cy="30" r="1.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="wbody">
+        <svg viewBox="0 0 320 460" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <rect x="0" y="0" width="320" height="460" rx="18" fill="#ddd4b8" stroke="#b8a87a" stroke-width="1.5"/>
+          <rect x="4" y="4" width="312" height="60" rx="15" fill="#e2d8bc" stroke="#c4b896" stroke-width=".5" opacity=".7"/>
+          <rect x="74" y="14" width="172" height="34" rx="6" fill="#c8bfa0" stroke="#b8a87a" stroke-width="1"/>
+          <rect x="78" y="18" width="30" height="24" rx="4" fill="#d4c9a8" stroke="#b8a87a" stroke-width=".75"/>
+          <polygon points="84,24 84,36 90,30" fill="#8c7a52" opacity=".8"/>
+          <polygon points="90,24 90,36 96,30" fill="#8c7a52" opacity=".8"/>
+          <rect x="112" y="18" width="30" height="24" rx="4" fill="#d4c9a8" stroke="#b8a87a" stroke-width=".75"/>
+          <polygon points="120,24 120,36 132,30" fill="#d94f1a" opacity=".9"/>
+          <rect x="146" y="18" width="30" height="24" rx="4" fill="#d4c9a8" stroke="#b8a87a" stroke-width=".75"/>
+          <polygon points="152,24 152,36 158,30" fill="#8c7a52" opacity=".8"/>
+          <polygon points="158,24 158,36 164,30" fill="#8c7a52" opacity=".8"/>
+          <rect x="180" y="18" width="30" height="24" rx="4" fill="#d4c9a8" stroke="#b8a87a" stroke-width=".75"/>
+          <rect x="188" y="24" width="14" height="12" rx="1.5" fill="#8c7a52" opacity=".8"/>
+          <rect x="212" y="18" width="30" height="24" rx="4" fill="#d4c9a8" stroke="#b8a87a" stroke-width=".75"/>
+          <polygon points="226,22 218,30 234,30" fill="#8c7a52" opacity=".8"/>
+          <rect x="218" y="31" width="16" height="3" rx="1" fill="#8c7a52" opacity=".8"/>
+          <rect x="28" y="62" width="264" height="200" rx="8" fill="#c8bfa0" stroke="#b8a87a" stroke-width="1"/>
+          <rect x="36" y="70" width="248" height="184" rx="5" fill="#bfb590" stroke="#a09070" stroke-width=".75"/>
+          <rect x="14" y="276" width="292" height="112" rx="8" fill="#d4c9a8" stroke="#b8a87a" stroke-width=".75" opacity=".6"/>
+          <rect x="30" y="292" width="100" height="6" rx="3" fill="#c4b896" stroke="#b8a87a" stroke-width=".75"/>
+          <rect x="30" y="290" width="58" height="10" rx="4" fill="#d0c4a0" stroke="#b8a87a" stroke-width=".75"/>
+          <text x="30" y="312" font-family="'Courier Prime',monospace" font-size="7" fill="#8c7a52" letter-spacing="1.5" opacity=".8">VOLUME</text>
+          <rect x="150" y="292" width="100" height="6" rx="3" fill="#c4b896" stroke="#b8a87a" stroke-width=".75"/>
+          <rect x="188" y="290" width="26" height="10" rx="4" fill="#d0c4a0" stroke="#b8a87a" stroke-width=".75"/>
+          <text x="150" y="312" font-family="'Courier Prime',monospace" font-size="7" fill="#8c7a52" letter-spacing="1.5" opacity=".8">TONE</text>
+          <text x="160" y="350" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="22" fill="#2a1f0e" letter-spacing="6" opacity=".35">PORTAPLAY</text>
+          <text x="160" y="367" text-anchor="middle" font-family="'Courier Prime',monospace" font-size="7.5" fill="#8c7a52" letter-spacing="3" opacity=".6">HI-FI STEREO · MODEL TC-46</text>
+          <rect x="0" y="430" width="320" height="10" rx="0" fill="#d94f1a" opacity=".7"/>
+          <rect x="0" y="440" width="320" height="8" fill="#e09010" opacity=".7"/>
+          <rect x="0" y="448" width="320" height="8" fill="#1a8a8a" opacity=".7"/>
+          <circle cx="28" cy="445" r="7" fill="#c8bfa0" stroke="#b8a87a" stroke-width="1"/>
+          <circle cx="28" cy="445" r="3" fill="#a09070"/>
+        </svg>
+      </div>
+      <div class="wdoor" id="door">
+        <svg viewBox="0 0 320 212" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <defs>
+            <mask id="door-window-cutout">
+              <rect width="320" height="212" fill="white"/>
+              <rect x="18" y="10" width="284" height="172" rx="6" fill="black"/>
+            </mask>
+          </defs>
+          <g mask="url(#door-window-cutout)">
+            <rect x="0" y="0" width="320" height="212" rx="10" fill="#e0d6ba" stroke="#b8a87a" stroke-width="1.5"/>
+            <rect x="6" y="6" width="308" height="200" rx="7" fill="#e6dcbf" stroke="#c4b896" stroke-width=".75"/>
+          </g>
+          <rect x="18" y="10" width="284" height="172" rx="6" fill="none" stroke="#c4b896" stroke-width="1"/>
+          <text x="160" y="198" text-anchor="middle" font-family="'Courier Prime',monospace" font-size="8" fill="#8c7a52" letter-spacing="2" opacity=".7">◁ AUTO REVERSE ▷</text>
+          <rect x="258" y="184" width="46" height="14" rx="2" fill="#d0c4a0" stroke="#b8a87a" stroke-width=".5"/>
+          <text x="281" y="194" text-anchor="middle" font-family="'Courier Prime',monospace" font-size="6" fill="#8c7a52" letter-spacing="1" opacity=".8">DOLBY NR</text>
+          <rect x="130" y="204" width="60" height="6" rx="3" fill="#c4b896" opacity=".6"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="background:var(--brown);color:var(--cream);padding:12px 0;overflow:hidden;white-space:nowrap">
+  <span style="display:inline-block;animation:tick 22s linear infinite;font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase">
+    Product Design<span style="color:var(--rust);margin:0 24px">✦</span>UX Research<span style="color:var(--rust);margin:0 24px">✦</span>Interaction Design<span style="color:var(--rust);margin:0 24px">✦</span>Usability Testing<span style="color:var(--rust);margin:0 24px">✦</span>Figma<span style="color:var(--rust);margin:0 24px">✦</span>Design Systems<span style="color:var(--rust);margin:0 24px">✦</span>User Flows<span style="color:var(--rust);margin:0 24px">✦</span>Wireframing<span style="color:var(--rust);margin:0 24px">✦</span>Branchout<span style="color:var(--rust);margin:0 24px">✦</span>Rivvy.io<span style="color:var(--rust);margin:0 24px">✦</span>&nbsp;&nbsp;Product Design<span style="color:var(--rust);margin:0 24px">✦</span>UX Research<span style="color:var(--rust);margin:0 24px">✦</span>Interaction Design<span style="color:var(--rust);margin:0 24px">✦</span>Usability Testing<span style="color:var(--rust);margin:0 24px">✦</span>Figma<span style="color:var(--rust);margin:0 24px">✦</span>Design Systems<span style="color:var(--rust);margin:0 24px">✦</span>User Flows<span style="color:var(--rust);margin:0 24px">✦</span>Wireframing<span style="color:var(--rust);margin:0 24px">✦</span>Branchout<span style="color:var(--rust);margin:0 24px">✦</span>Rivvy.io<span style="color:var(--rust);margin:0 24px">✦</span>
+  </span>
+</div>
+
+<section style="border-top:1px solid rgba(42,31,14,.2);padding:80px 72px" id="work">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:64px" class="reveal">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:96px;line-height:1;color:var(--brown);letter-spacing:3px">WORK<br><span style="-webkit-text-stroke:2px var(--brown);color:transparent">CASES.</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(42,31,14,.15)" class="reveal">
+    <!-- BRANCHOUT CARD -->
+    <div style="background:var(--cream);padding:48px;grid-column:span 2;transition:background .3s" onmouseover="this.style.background='var(--parch)'" onmouseout="this.style.background='var(--cream)'">
+      <div>
+        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:var(--sand);margin-bottom:16px">01 — Featured</div>
+        <div style="width:44px;height:44px;border-radius:8px;background:var(--parch);border:1px solid rgba(42,31,14,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sand)">BR</div>
+        <span style="display:inline-block;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);background:var(--rust);padding:4px 10px;margin-bottom:16px">UX/UI Design</span>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;letter-spacing:2px;color:var(--brown);margin-bottom:12px">BRANCHOUT</h3>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:300;color:var(--sand);line-height:1.5;max-width:320px;margin-bottom:32px">End-to-end product design for a community social platform — zero to beta, 10K+ users.</p>
+        <a href="#" onclick="showPage('branchout');return false" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border-bottom:1px solid var(--brown);padding-bottom:2px;text-decoration:none;cursor:none">View Case Study →</a>
+      </div>
+
+    </div>
+    <!-- RIVVY CARD -->
+    <div style="background:var(--cream);padding:48px;grid-column:span 2;transition:background .3s" onmouseover="this.style.background='var(--parch)'" onmouseout="this.style.background='var(--cream)'">
+      <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:var(--sand);margin-bottom:16px">02</div>
+      <div style="width:44px;height:44px;border-radius:8px;background:var(--parch);border:1px solid rgba(42,31,14,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sand)">RV</div>
+      <span style="display:inline-block;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);background:var(--rust);padding:4px 10px;margin-bottom:16px">UX Research</span>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;letter-spacing:2px;color:var(--brown);margin-bottom:12px">RIVVY.IO</h3>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:300;color:var(--sand);line-height:1.5;max-width:320px;margin-bottom:32px">Usability testing + UI redesign to reduce friction and improve conversion.</p>
+      <span style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sand);opacity:.4">Coming Soon</span>
+    </div></div>
+</section>
+
+<section style="display:grid;grid-template-columns:1fr 2fr;border-top:1px solid rgba(42,31,14,.2)" id="about">
+  <div style="padding:80px 48px;border-right:1px solid rgba(42,31,14,.2);display:flex;flex-direction:column;gap:32px" class="reveal">
+    <span style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:var(--sand)">// 02</span>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;color:var(--brown);letter-spacing:3px;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg)">ABOUT</div>
+  </div>
+  <div style="padding:80px 72px" class="reveal">
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:300;line-height:1.5;color:var(--brown);max-width:560px;margin-bottom:32px">I'm a <strong style="font-weight:700;color:var(--rust)">Product Designer and UX Researcher</strong> based in Santa Barbara — with a background in Psychology that turns user research into something more than a checkbox.</p>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:300;line-height:1.5;color:var(--brown);max-width:560px;margin-bottom:32px">Three years embedded in early-stage tech, learning how to build products that real people actually want to use. I care about the gap between how something <strong style="font-weight:700;color:var(--rust)">looks</strong> and how it <strong style="font-weight:700;color:var(--rust)">works</strong>.</p>
+    <div class="stripes" style="width:220px;margin-top:8px"><div class="stripe s1"></div><div class="stripe s2"></div><div class="stripe s3"></div><div class="stripe s4"></div></div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:40px">
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border:1px solid rgba(42,31,14,.3);padding:6px 14px">Figma</span>
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border:1px solid rgba(42,31,14,.3);padding:6px 14px">User Research</span>
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border:1px solid rgba(42,31,14,.3);padding:6px 14px">Usability Testing</span>
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border:1px solid rgba(42,31,14,.3);padding:6px 14px">Wireframing</span>
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border:1px solid rgba(42,31,14,.3);padding:6px 14px">Prototyping</span>
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border:1px solid rgba(42,31,14,.3);padding:6px 14px">Design Systems</span>
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border:1px solid rgba(42,31,14,.3);padding:6px 14px">Psychology B.A.</span>
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--brown);border:1px solid rgba(42,31,14,.3);padding:6px 14px">Dean's List</span>
+    </div>
+  </div>
+</section>
+
+<section style="border-top:1px solid rgba(42,31,14,.2);background:var(--brown);padding:100px 72px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;overflow:hidden" id="contact">
+  <div style="position:absolute;top:0;right:0;width:300px;height:100%;background:repeating-linear-gradient(to bottom,var(--rust) 0,var(--rust) 60px,var(--gold) 60px,var(--gold) 120px,var(--teal) 120px,var(--teal) 180px,var(--sand) 180px,var(--sand) 240px);opacity:.12"></div>
+  <div class="reveal">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:96px;line-height:.92;color:var(--cream);letter-spacing:3px">LET'S<br><span style="-webkit-text-stroke:2px var(--cream);color:transparent">TALK.</span></h2>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:300;color:var(--warm);line-height:1.6;margin-bottom:40px;margin-top:24px">Open to full-time Product Design and UX Research roles. Based in Santa Barbara — available remotely or to relocate.</p>
+    <a href="mailto:liam.oshea117@gmail.com" style="font-family:'Courier Prime',monospace;font-size:15px;letter-spacing:1px;color:var(--cream);text-decoration:none;border-bottom:1px solid var(--rust);padding-bottom:4px;display:inline-block;margin-bottom:40px">liam.oshea117@gmail.com</a><br>
+    <a href="#" class="btn btn-p" style="margin-top:8px">Download Resume</a>
+  </div>
+  <div class="reveal">
+    <div class="stripes" style="width:100%;max-width:360px;margin-bottom:40px">
+      <div class="stripe s1" style="height:12px"></div><div class="stripe s2" style="height:12px"></div>
+      <div class="stripe s3" style="height:12px"></div><div class="stripe s4" style="height:12px"></div>
+      <div class="stripe s5" style="height:12px"></div>
+    </div>
+    <p style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:#8c7a52;text-transform:uppercase;line-height:2.2">Santa Barbara, CA<br>Available Now<br>Product Design · UX Research<br>Est. 2022</p>
+  </div>
+</section>
+
+<footer style="background:var(--dk);padding:24px 72px;display:flex;align-items:center;justify-content:space-between">
+  <p style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sand)">© 2026 Liam O'Shea</p>
+  <div style="display:flex;gap:4px">
+    <span style="display:block;width:20px;height:4px;background:#d94f1a"></span>
+    <span style="display:block;width:20px;height:4px;background:#e09010"></span>
+    <span style="display:block;width:20px;height:4px;background:#1a8a8a"></span>
+    <span style="display:block;width:20px;height:4px;background:#8c7a52"></span>
+    <span style="display:block;width:20px;height:4px;background:#2a1f0e"></span>
+  </div>
+  <p style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sand)">Santa Barbara, CA</p>
+</footer>
+</div><!-- /page-home -->
+
+<!-- ═══════════════════════════════════════════ BRANCHOUT PAGE ═══ -->
+<div id="page-branchout" class="page">
+
+<div class="cs-back"><a href="#" onclick="showPage('home');return false">← Back to Work</a></div>
+
+<div class="cs-hero">
+  <div>
+    <div class="eyebrow">Case Study — UX/UI Design</div>
+    <div class="cs-h1">BRANCH<span style="color:var(--rust)">OUT</span></div>
+    <div class="cs-sub">Social platform design — zero to beta launch</div>
+    <div class="stripes" style="width:240px"><div class="stripe s1"></div><div class="stripe s2"></div><div class="stripe s3"></div><div class="stripe s4"></div></div>
+  </div>
+</div>
+
+<div class="overview">
+  <div class="ov-item"><div class="ov-label">Role</div><div class="ov-val">UX/UI Lead &amp; Researcher</div></div>
+  <div class="ov-item"><div class="ov-label">Timeline</div><div class="ov-val">Jan 2024 – Present</div></div>
+  <div class="ov-item"><div class="ov-label">Team</div><div class="ov-val">Cross-functional</div></div>
+  <div class="ov-item"><div class="ov-label">Platform</div><div class="ov-val">Mobile &amp; Web</div></div>
+</div>
+
+<!-- 01 PROBLEM -->
+<div class="cs-section">
+  <div class="cs-label">
+    <span class="cs-sec-num">01</span>
+    <div class="cs-sec-title">PROBLEM</div>
+  </div>
+  <div class="cs-body">
+    <div class="cs-h2">STOPPING PLANS FROM FALLING THROUGH</div>
+    <p class="cs-p">In a recent survey by the Institute of Politics at Harvard Kennedy School, just <strong>17% of U.S. adults under 30</strong> report feeling deeply connected to at least one community. While many solutions exist on the market, they often fall short of actually fostering connections to communities and events among young adults.</p>
+    <p class="cs-p">Recognizing these statistics, we saw an opportunity to help users find the communities they love and foster real social connection.</p>
+  </div>
+</div>
+
+<!-- 02 RESEARCH -->
+<div class="cs-section">
+  <div class="cs-label">
+    <span class="cs-sec-num">02</span>
+    <div class="cs-sec-title">RESEARCH</div>
+  </div>
+  <div class="cs-body">
+    <div class="cs-h2">UNDERSTANDING THE PROBLEM</div>
+    <p class="cs-p">We conducted interviews and surveys with over <strong>100 college students</strong> across Southern California to fully understand the problem of lack of connection among young adults.</p>
+    <div class="cards">
+      <div class="card"><div class="card-title">Reach Out Fatigue</div><div class="card-body">Many people expressed frustration with always being the ones to initiate contact, feeling that the other party had a lack of interest.</div></div>
+      <div class="card"><div class="card-title">Last Minute Cancellations</div><div class="card-body">Building up excitement around a plan only for it to fall through last minute was one of the most common frustrations we heard.</div></div>
+      <div class="card"><div class="card-title">Hindsight FOMO</div><div class="card-body">Many users reported events in their area passed them by unnoticed due to the noise of social media platforms where events get spread.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 IDEATION -->
+<div class="cs-section">
+  <div class="cs-label">
+    <span class="cs-sec-num">03</span>
+    <div class="cs-sec-title">IDEATION</div>
+  </div>
+  <div class="cs-body">
+    <div class="cs-h2">EARLY IDEATION</div>
+    <p class="cs-p">Knowing we wanted to create a platform connecting users with events and activities they were interested in, we started exploring several iterations of how best to deliver on that. We decided a home screen built around a calendar would give users the clearest visual representation of their day.</p>
+    <!-- IMAGE 1: Color palette / design system -->
+    <img src="https://i.ibb.co/KxVDLDz1/INitial-testing.png" style="width:100%;max-height:620px;object-fit:contain;object-position:center;display:block;border:1px solid rgba(42,31,14,.15);background:var(--parch)">
+    <div class="img-caption">Branchout Design System — Color Palette &amp; Typography</div>
+    <div class="cs-h3">EARLY DRAFTS</div>
+    <p class="cs-p">After figuring out the basics of the home screen, we explored several different layout ideas.</p>
+    <!-- IMAGE 2: Early drafts — 4 green home screens -->
+    <img src="https://i.ibb.co/3mLP81P2/draft.png" style="width:100%;max-height:620px;object-fit:contain;object-position:center;display:block;border:1px solid rgba(42,31,14,.15);background:var(--parch)">
+    <div class="img-caption">Early Homepage Iterations — Home Screen Without Invite Option</div>
+    <div class="cs-h3">USER TESTING</div>
+    <p class="cs-p">After building the homepage around a calendar design, we began user testing — letting small groups of <strong>10–15 people</strong> use the app and provide feedback on how it looked, felt, and any friction they encountered.</p>
+    <div class="cards">
+      <div class="card"><div class="card-title">Lack of Modern Look</div><div class="card-body">A common theme was that the design lacked innovation — users described it as bland in layout and visual style.</div></div>
+      <div class="card"><div class="card-title">Complicated Plan Creation</div><div class="card-body">Users had difficulty creating plans. They integrated well into the calendar once made, but getting there created too much friction.</div></div>
+      <div class="card"><div class="card-title">Visual Clutter</div><div class="card-body">Almost everyone noted that events being constantly surfaced on the homepage caused fatigue and made them not want to spend time in the app.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 SOLUTION -->
+<div class="cs-section">
+  <div class="cs-label">
+    <span class="cs-sec-num">04</span>
+    <div class="cs-sec-title">SOLUTION</div>
+  </div>
+  <div class="cs-body">
+    <div class="cs-h2">THE SCALABLE SOLUTION</div>
+    <p class="cs-p">After user testing feedback, we updated the design to feel more modern, use tones easier on the eyes, and tackled the friction in plan creation head-on.</p>
+    <div class="callout">
+      <div class="callout-item">Sleek gradient patterns give variety of color</div>
+      <div class="callout-item">AI suggests activities with friends based on your schedule</div>
+      <div class="callout-item">Activity creation available manually all through the homepage</div>
+      <div class="callout-item">Swipe to plan feature added</div>
+      <div class="callout-item">Day/night cycle added when expanding calendar day view</div>
+    </div>
+    <!-- IMAGE 3: Final screens — gradient "What's the vibe James" -->
+    <img src="https://i.ibb.co/Wp5Mq3mX/Scalable-solution.png" style="width:100%;max-height:620px;object-fit:contain;object-position:center;display:block;border:1px solid rgba(42,31,14,.15);background:var(--parch)">
+    <div class="img-caption">Final Design — AI Suggestions &amp; Gradient System</div>
+  </div>
+</div>
+
+<!-- CASE NAV -->
+<div class="case-nav">
+  <div>
+    <div class="cn-label">Previous</div>
+    <div class="cn-muted">— No previous project</div>
+  </div>
+  <button class="cn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to Top</button>
+  <div style="text-align:right">
+    <div class="cn-label">Next Project</div>
+    <span class="cn-link" style="opacity:.4">RIVVY.IO — Coming Soon</span>
+  </div>
+</div>
+
+<footer style="background:var(--dk);padding:24px 72px;display:flex;align-items:center;justify-content:space-between">
+  <p style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sand)">© 2026 Liam O'Shea</p>
+  <div style="display:flex;gap:4px">
+    <span style="display:block;width:20px;height:4px;background:#d94f1a"></span>
+    <span style="display:block;width:20px;height:4px;background:#e09010"></span>
+    <span style="display:block;width:20px;height:4px;background:#1a8a8a"></span>
+    <span style="display:block;width:20px;height:4px;background:#8c7a52"></span>
+    <span style="display:block;width:20px;height:4px;background:#2a1f0e"></span>
+  </div>
+  <p style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sand)">Santa Barbara, CA</p>
+</footer>
+</div><!-- /page-branchout -->
+
+<script>
+// cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a);})();
+
+// page switching — no files, no links, just show/hide
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// walkman animation
+setTimeout(()=>{document.getElementById('cassette').classList.add('hidden-by-door');},2150);
+
+// scroll reveal
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
